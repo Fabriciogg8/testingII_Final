@@ -28,15 +28,22 @@ public class OpenAccountPage extends BasePage {
     }
 
     public void selectSavingsAccount() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        // Esperar a que el dropdown de tipo de cuenta sea visible
+        wait.until(ExpectedConditions.visibilityOfElementLocated(accountTypeDropdown));
         click(accountTypeDropdown);
+
+        // Esperar a que la opción de ahorros sea visible y hacer clic en ella
+        wait.until(ExpectedConditions.elementToBeClickable(savingsOption));
         click(savingsOption);
+
         // Seleccionar la primera opción del dropdown fromAccountId
         Select fromAccountDropdown = new Select(driver.findElement(fromAccountIdDropdown));
         fromAccountDropdown.selectByIndex(0);
     }
 
     public void submitOpenAccount() {
-
         // Hacer clic en el botón de abrir cuenta
         click(openAccountButton);
 

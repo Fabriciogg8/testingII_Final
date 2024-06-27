@@ -31,24 +31,43 @@ public class RegisterTest extends BaseTest {
             extentTest.log(Status.FAIL, "El registro está actualmente deshabilitado.");
             Assertions.fail("Registration is currently disabled. Please try again later.");
         } else {
-            extentTest.log(Status.INFO, "Llenando el formulario de registro");
+            extentTest.log(Status.INFO, "Intentando registrarse con el usuario juandoe");
 
-            // Generar un nombre de usuario único usando un número aleatorio
-            Random random = new Random();
-            String uniqueUsername = "juandoe" + random.nextInt(10000);
-            extentTest.log(Status.INFO, "Usando el nombre de usuario: " + uniqueUsername);
+            // Intentar registrar con el usuario conocido juandoe y contraseña 12345
+            try {
+                registerPage.fillRegistrationForm("Juan", "Doe", "123 Main St", "Anytown", "CA", "90210", "555-1234", "123-45-6789", "juandoe", "12345");
+                registerPage.submitRegistration();
+                extentTest.log(Status.INFO, "Formulario de registro enviado con juandoe");
+                ReportFactory.takeScreenshot(extentTest, "RegistroJuandoe", driver);
 
-            registerPage.fillRegistrationForm("Juan", "Doe", "123 Main St", "Anytown", "CA", "90210", "555-1234", "123-45-6789", uniqueUsername, "password");
-            ReportFactory.takeScreenshot(extentTest, "FormularioLleno", driver);
+                // Verificar mensaje de éxito esperado
+                String successMessage = registerPage.getSuccessMessage();
+                extentTest.log(Status.INFO, "Mensaje de éxito recibido: " + successMessage);
+                Assertions.assertEquals("Your account was created successfully. You are now logged in.", successMessage);
+                extentTest.log(Status.PASS, "Registro completado exitosamente con juandoe");
+            } catch (AssertionError e) {
+                extentTest.log(Status.WARNING, "Registro con juandoe falló: " + e.getMessage());
+                extentTest.log(Status.INFO, "Generando nombre de usuario único para registro aleatorio");
 
-            registerPage.submitRegistration();
-            extentTest.log(Status.INFO, "Formulario de registro enviado");
-            ReportFactory.takeScreenshot(extentTest, "RegistroEnviado", driver);
+                // Generar un nombre de usuario único usando un número aleatorio
+                Random random = new Random();
+                String uniqueUsername = "juandoe" + random.nextInt(10000);
+                extentTest.log(Status.INFO, "Usando el nombre de usuario aleatorio: " + uniqueUsername);
 
-            String successMessage = registerPage.getSuccessMessage();
-            extentTest.log(Status.INFO, "Mensaje de éxito recibido: " + successMessage);
-            Assertions.assertEquals("Your account was created successfully. You are now logged in.", successMessage);
-            extentTest.log(Status.PASS, "Registro completado exitosamente");
+                // Registrar con el nombre de usuario único aleatorio y contraseña
+                registerPage.fillRegistrationForm("Juan", "Doe", "123 Main St", "Anytown", "CA", "90210", "555-1234", "123-45-6789", uniqueUsername, "password");
+                ReportFactory.takeScreenshot(extentTest, "FormularioLleno", driver);
+
+                registerPage.submitRegistration();
+                extentTest.log(Status.INFO, "Formulario de registro enviado");
+                ReportFactory.takeScreenshot(extentTest, "RegistroEnviado", driver);
+
+                // Verificar mensaje de éxito esperado después de registro aleatorio
+                String successMessageRandom = registerPage.getSuccessMessage();
+                extentTest.log(Status.INFO, "Mensaje de éxito recibido: " + successMessageRandom);
+                Assertions.assertEquals("Your account was created successfully. You are now logged in.", successMessageRandom);
+                extentTest.log(Status.PASS, "Registro completado exitosamente con nombre de usuario aleatorio");
+            }
         }
     }
 }

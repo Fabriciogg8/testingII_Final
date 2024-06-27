@@ -6,8 +6,8 @@ import org.para_bank.base.BasePage;
 
 public class AccountsOverviewPage extends BasePage {
 
-    private By accountsOverviewLink = By.xpath("//*[@id=\"leftPanel\"]/ul/li[2]/a");
-    private By balanceText = By.xpath("//*[@id=\"accountTable\"]/tfoot/tr/td");
+    private By accountsOverviewLink = By.xpath("//*[@id='leftPanel']/ul/li[2]/a");
+    private By balanceText = By.xpath("//*[@id='accountTable']/tfoot/tr/td");
 
     public AccountsOverviewPage(WebDriver driver) {
         super(driver);

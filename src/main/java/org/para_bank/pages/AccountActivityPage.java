@@ -8,9 +8,9 @@ import org.para_bank.base.BasePage;
 public class AccountActivityPage extends BasePage {
 
     private By accountsOverviewLink = By.xpath("//*[@id='leftPanel']/ul/li[2]/a");
-    private By balanceIncludesText = By.xpath("//*[@id='accountTable']/tfoot/tr/td");
-    private By firstAccountLink = By.xpath("//*[@id='accountTable']/tbody/tr[1]/td[1]/a");
-    private By accountDetailsTitle = By.xpath("//*[@id='accountDetails']/h1");
+    private By balanceIncludesTextLocator = By.xpath("//*[@id='accountTable']/tfoot/tr/td");
+    private By firstAccountLinkLocator = By.xpath("//*[@id='accountTable']/tbody/tr[1]/td[1]/a");
+    private By accountDetailsTitleLocator = By.xpath("//*[@id='accountDetails']/h1");
     private By monthDropdown = By.id("month");
     private By transactionTypeDropdown = By.id("transactionType");
     private By goButton = By.xpath("//input[@value='Go']");
@@ -24,15 +24,15 @@ public class AccountActivityPage extends BasePage {
     }
 
     public boolean isBalanceIncludesTextPresent() {
-        return isElementPresent(balanceIncludesText);
+        return isElementPresent(balanceIncludesTextLocator);
     }
 
     public void clickFirstAccount() {
-        click(firstAccountLink);
+        click(firstAccountLinkLocator);
     }
 
     public boolean isAccountDetailsTitlePresent() {
-        return isElementPresent(accountDetailsTitle);
+        return isElementPresent(accountDetailsTitleLocator);
     }
 
     public void selectMonth(String month) {
@@ -47,5 +47,18 @@ public class AccountActivityPage extends BasePage {
 
     public void clickGo() {
         click(goButton);
+    }
+
+    // Métodos públicos para obtener los localizadores de los elementos privados
+    public By getBalanceIncludesTextLocator() {
+        return balanceIncludesTextLocator;
+    }
+
+    public By getFirstAccountLinkLocator() {
+        return firstAccountLinkLocator;
+    }
+
+    public By getAccountDetailsTitleLocator() {
+        return accountDetailsTitleLocator;
     }
 }

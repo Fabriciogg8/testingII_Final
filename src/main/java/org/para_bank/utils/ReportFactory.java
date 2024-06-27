@@ -19,7 +19,7 @@ public class ReportFactory {
     public static ExtentReports getInstance() {
         ExtentReports extent = new ExtentReports();
         extent.setSystemInfo("Sistema Operativo", "Windows");
-        extent.setSystemInfo("Navegador Utilizado", "Chrome");
+        extent.setSystemInfo("Navegador Utilizado", "Edge");
         extent.setSystemInfo("Entorno", "QA");
         extent.setSystemInfo("Versión de Selenium", "4.21.0");
         return extent;
